@@ -1,0 +1,137 @@
+
+$cell_diemeter: 20px;//16px;
+
+* {
+  box-sizing: border-box;
+  background-color: #222;
+  color: #eee;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.b1dt {
+  border: 1px dashed tomato !important;
+}
+
+// @keyframes fadein {
+//   0% {
+//     background: none;
+//   }
+// }
+
+// @mixin visitedAnim ($color: plum) {
+//   background: $color;
+//   animation-name: fadein;
+//   animation-duration: .1s;
+//   animation-delay: 0;
+//   animation-iteration-count: 1;
+//   // animation-direction
+//   animation-timing-function: ease;
+//   // animation-fill-mode
+// }
+
+.board {
+  $dark: #a9b0b8;
+  $light: #ecf0f1;
+  $hov: #e2e8e9;
+  border: 1px dashed tomato;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .row {
+    display: flex;
+    flex-direction: row;
+    .cell {
+      width: $cell_diemeter;
+      height: $cell_diemeter;
+      background: $light;
+      border: 1px solid $dark;
+      user-select: none;
+
+      font-size: .5rem;
+      color: black;
+      // transition: .3s linear;
+      &.floor {
+        background: $light;
+      }
+      &.wall {
+        background: $dark;
+      }
+      &.sludge {
+        background: olive;
+      }
+      &.start_point {
+        background: mediumspringgreen;
+        cursor: all-scroll;
+      }
+      &.mid_point {
+        background: mediumslateblue;
+        cursor: all-scroll;
+      }
+      &.end_point {
+        background: indianred;
+        cursor: all-scroll;
+      }
+      &.visited {
+        background: plum;
+      }
+      &.path {
+        background: gold;
+      }
+      &:hover {
+        border-color: tomato;
+      }
+    }
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
