@@ -3,6 +3,7 @@
 class Tree {
   constructor () {
     this.data = []
+    this.accessValue = a => a
   }
 
   insert (val) {
@@ -10,10 +11,10 @@ class Tree {
   }
   
   insertNode (rootIdx, val) {
-    const node = this.getNode(rootIdx)
+    const node = this.getNodeValue(rootIdx)
     if (!node) this.data[rootIdx] = val
-    if (val < node) return this.insertNode(this.getLeftIdx(rootIdx), val)
-    if (val >= node) return this.insertNode(this.getRightIdx(rootIdx), val)
+    if (this.accessValue(val) < node) return this.insertNode(this.getLeftIdx(rootIdx), val)
+    if (this.accessValue(val) >= node) return this.insertNode(this.getRightIdx(rootIdx), val)
   }
   
   delete (target) {
@@ -29,7 +30,7 @@ class Tree {
   
   deleteNode (rootIdx, target) {
     // if the tree is empty return
-    let node = this.getNode(rootIdx)
+    let node = this.getNodeValue(rootIdx)
     console.log(`### searching idx ${rootIdx} with value ${node}. target: ${target}`)
     if (!node) {
       return null
@@ -84,7 +85,7 @@ class Tree {
       // everything to its right is garunteed to be larger, so the smallest value
       // from the right becomes the new "middle"
       const nextOrderSuccessor = this.getMinChild(this.getRightIdx(rootIdx))
-      const nextOrderData = this.getNode(nextOrderSuccessor)
+      const nextOrderData = this.getNodeValue(nextOrderSuccessor)
       console.log(`next order successor is idx ${nextOrderSuccessor}`)
 
       // this method first coppies the data of the smallest to this position...
@@ -103,11 +104,47 @@ class Tree {
     }
   }
 
+  getNodeValue (idx) {
+    return this.accessValue(this.data[idx])
+  }
+
   getMinChild (rootIdx) {
     const hasLeftChild = this.hasLeftChild(rootIdx)
     if (!hasLeftChild) return rootIdx
     else return this.getMinChild(this.getLeftIdx(rootIdx))
   }
+
+  search (target) {
+    return this.searchNode(0, target)
+  }
+
+  searchNodeByValue (rootIdx, target) {
+    const node = this.getNodeValue(rootIdx)
+    if (node === target) {
+      return this.data[rootIdx]
+    }
+    else if (target < node) {
+      return this.searchNode(this.getLeftIdx(rootIdx), target)
+    }
+    else if (target > node) {
+      return this.searchNode(this.getRightIdx(rootIdx), target)
+    }
+    return null
+  }
+
+  // searchNodeByLabel (rootIdx, target) {
+  //   const node = this.getNodeLabel(rootIdx)
+  //   if (node === target) {
+  //     return this.data[rootIdx]
+  //   }
+  //   else if (target < node) {
+  //     return this.searchNode(this.getLeftIdx(rootIdx), target)
+  //   }
+  //   else if (target > node) {
+  //     return this.searchNode(this.getRightIdx(rootIdx), target)
+  //   }
+  //   return null
+  // }
   
   preOrder () {
     this.preOrderNode(0)
@@ -115,7 +152,7 @@ class Tree {
   }
   
   preOrderNode (rootIdx) {
-    const node = this.getNode(rootIdx)
+    const node = this.getNodeValue(rootIdx)
     if (!node) return
     console.log(node)
     if (this.hasLeftChild(rootIdx)) {
@@ -134,7 +171,7 @@ class Tree {
     if (this.hasLeftChild(rootIdx)) {
       this.inOrderNode(this.getLeftIdx(rootIdx))
     }
-    const node = this.getNode(rootIdx)
+    const node = this.getNodeValue(rootIdx)
     if (node) console.log(node)
     if (this.hasRightChild(rootIdx)) {
       this.inOrderNode(this.getRightIdx(rootIdx))
@@ -152,14 +189,11 @@ class Tree {
     if (this.hasRightChild(rootIdx)) {
       this.postOrderNode(this.getRightIdx(rootIdx))
     }
-    const node = this.getNode(rootIdx)
+    const node = this.getNodeValue(rootIdx)
     if (!node) return
     if (node) console.log(node)
   }
 
-  getNode (idx) {
-    return this.data[idx]
-  }
   hasLeftChild (idx) {
     return !!this.data[this.getLeftIdx(idx)]
   }
@@ -180,35 +214,36 @@ class Tree {
   }
 }
 
-const t = new Tree()
+// const t = new Tree()
 
-t.insert(20)
-t.insert(8)
-t.insert(22)
-t.insert(4)
-t.insert(12)
-t.insert(10)
-t.insert(14)
-t.insert(15)
-// console.log(t.getMinChild(2))
+// t.insert(20)
+// t.insert(8)
+// t.insert(22)
+// t.insert(4)
+// t.insert(12)
+// t.insert(10)
+// t.insert(14)
+// t.insert(15)
+// // console.log(t.getMinChild(2))
+// // console.log('=================')
+// // console.log('preOrder')
+// // console.log(t.preOrder())
 // console.log('=================')
-// console.log('preOrder')
-// console.log(t.preOrder())
-console.log('=================')
-console.log('inOrder')
-console.log(t.inOrder())
+// console.log('inOrder')
+// console.log(t.inOrder())
+// // console.log('=================')
+// // console.log('postOrder')
+// // console.log(t.postOrder())
+// t.delete(12)
+
 // console.log('=================')
-// console.log('postOrder')
-// console.log(t.postOrder())
-t.delete(12)
+// console.log(t.data)
+// console.log('=================')
+// console.log('inOrder')
+// console.log(t.inOrder())
 
-console.log('=================')
-console.log(t.data)
-console.log('=================')
-console.log('inOrder')
-console.log(t.inOrder())
-
-
+// console.log('=================')
+// console.log(t.search(33))
 
 /*********************
     20
@@ -221,3 +256,5 @@ console.log(t.inOrder())
          \
           15
 */
+
+module.exports = Tree

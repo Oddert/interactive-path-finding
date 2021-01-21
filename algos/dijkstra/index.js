@@ -46,6 +46,10 @@ const lowestCostNode = (costs, processed) => {
  */
 const dijkstra = graph => {
   const costs = Object.assign({ finish: Infinity }, graph.start)
+  // const costs = new Tree ()
+  // costs.accessMethod = node => node.value
+  // costs.add({ label: 'finish', value: Infinity })
+
   const parents = { finish: null }
 
   // Add the children of the start node
@@ -57,6 +61,7 @@ const dijkstra = graph => {
 
   // Initialise the first node
   let node = lowestCostNode(costs, processed)
+
   console.log({costs, processed, node})
 
   while (node) {

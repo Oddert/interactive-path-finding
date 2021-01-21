@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "Robyn Felicity Heather Veitch <robynfhveitch@gmail.com> (https://robynveitch.com/)",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "eslint": "^7.16.0",
     "eslint-plugin-react": "^7.21.2"
