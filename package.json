@@ -7,7 +7,7 @@
     "start": "cd client && npm run start",
     "build": "cd client && npm run build",
     "eject": "cd client && npm run eject",
-    "test": "cd client && npm run test",
+    "test": "cd client && npm run test"
   },
   "keywords": [],
   "author": "Robyn Felicity Heather Veitch <robynfhveitch@gmail.com> (https://robynveitch.com/)",
