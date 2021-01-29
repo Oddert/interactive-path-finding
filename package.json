@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "install-client": "cd client && npm i",
     "start": "cd client && npm run start",
     "build": "cd client && npm run build",
     "eject": "cd client && npm run eject",
